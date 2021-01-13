@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="548.0" prefWidth="960.0" stylesheets="@../Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyCustomerController">
+    <children>
+        <Button layoutX="830.0" layoutY="470.0" onAction="#onActionUpdateCustomer" prefHeight="30.0" prefWidth="80.0" text="Save" />
+      <Button fx:id="returnMainMenuBtn" layoutX="40.0" layoutY="39.0" onAction="#onActionReturnMainMenu" prefHeight="30.0" prefWidth="80.0" text="Back" />
+      <TextField fx:id="cNameTF" layoutX="723.0" layoutY="93.0" promptText="Name" />
+      <TextField fx:id="cAddressTF" layoutX="723.0" layoutY="135.0" promptText="Address" />
+      <Label layoutX="393.0" layoutY="44.0" text="Modify Customer" />
+      <TextField fx:id="cPhoneTF" layoutX="723.0" layoutY="315.0" promptText="Phone Number" />
+      <TextField fx:id="cPostalCodeTF" layoutX="723.0" layoutY="269.0" promptText="Zip Code" />
+      <Button layoutX="723.0" layoutY="470.0" onAction="#onActionEditFields" prefHeight="30.0" prefWidth="80.0" text="Edit" />
+      <ComboBox fx:id="regionCB" layoutX="723.0" layoutY="223.0" prefWidth="187.0" promptText="Region" />
+      <ComboBox fx:id="countryCB" layoutX="723.0" layoutY="177.0" onAction="#onActionCountrySelected" prefHeight="31.0" prefWidth="187.0" promptText="Country" />
+      <TextField fx:id="cIDTF" layoutX="723.0" layoutY="361.0" promptText="Customer ID" />
+      <TableView fx:id="customersTV" layoutX="43.0" layoutY="95.0" prefHeight="299.0" prefWidth="645.0">
+        <columns>
+          <TableColumn fx:id="customerIDCol" prefWidth="27.0" text="ID" />
+          <TableColumn fx:id="customerNameCol" prefWidth="90.0" text="Name" />
+            <TableColumn fx:id="customerAddressCol" prefWidth="121.0" text="Address" />
+            <TableColumn fx:id="customerZipCol" prefWidth="88.0" text="Zip" />
+            <TableColumn fx:id="customerPhoneCol" prefWidth="128.0" text="Phone" />
+            <TableColumn fx:id="customerDivCol" prefWidth="92.0" text="Divsion" />
+            <TableColumn fx:id="customerCountryCol" prefWidth="108.0" text="Country" />
+        </columns>
+      </TableView>
+      <Button layoutX="830.0" layoutY="423.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" prefHeight="30.0" prefWidth="80.0" text="Delete" />
+      <Button layoutX="723.0" layoutY="423.0" mnemonicParsing="false" onAction="#onActionClearFields" prefHeight="30.0" prefWidth="80.0" text="Clear" />
+    </children>
+</AnchorPane>

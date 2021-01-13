@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="548.0" prefWidth="960.0" stylesheets="@../Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ViewAppointmentReportsController">
+    <children>
+      <Button fx:id="returnMainMenuBtn" layoutX="40.0" layoutY="39.0" onAction="#onActionReturnMainMenu" prefHeight="30.0" prefWidth="80.0" text="Back" />
+      <Label layoutX="418.0" layoutY="44.0" text="Company Reports" />
+      <Label layoutX="305.0" layoutY="106.0" text="Total Number of Appointments:" />
+      <TextField fx:id="totalAppsReportLabel" disable="true" layoutX="615.0" layoutY="101.0" prefHeight="31.0" prefWidth="102.0" />
+      <Label layoutX="305.0" layoutY="161.0" text="Total Number of Appointments  by Type:" />
+      <TextField fx:id="totalTypeAppsReportLabel" disable="true" layoutX="615.0" layoutY="207.0" prefHeight="31.0" prefWidth="102.0" />
+      <TextField fx:id="typeSearchTF" layoutX="305.0" layoutY="207.0" prefHeight="31.0" prefWidth="116.0" />
+      <Button layoutX="446.0" layoutY="207.0" mnemonicParsing="false" onAction="#onActionAppointmentTypeSearch" prefHeight="31.0" text="Search" />
+      <Label layoutX="305.0" layoutY="264.0" text="Total Number of Appointments  by Contact:" />
+      <Label layoutX="305.0" layoutY="303.0" text="Daniel Garcia:" />
+      <TextField fx:id="totalDGReportsLabel" disable="true" layoutX="615.0" layoutY="298.0" prefHeight="31.0" prefWidth="102.0" />
+      <Label layoutX="306.0" layoutY="359.0" text="Anika Costa:" />
+      <TextField fx:id="totalACReportsLabel" disable="true" layoutX="615.0" layoutY="354.0" prefHeight="31.0" prefWidth="102.0" />
+      <Label layoutX="308.0" layoutY="416.0" text="Li Lee:" />
+      <TextField fx:id="totalLLReportsLabel" disable="true" layoutX="615.0" layoutY="411.0" prefHeight="31.0" prefWidth="102.0" />
+    </children>
+</AnchorPane>

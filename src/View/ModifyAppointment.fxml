@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyAppointmentController">
+    <children>
+        <Button layoutX="877.0" layoutY="207.0" onAction="#onActionModifyAppointment" prefHeight="30.0" prefWidth="80.0" text="Save" />
+      <Button layoutX="40.0" layoutY="39.0" onAction="#onActionReturnMainMenu" prefHeight="30.0" prefWidth="80.0" text="Back" />
+      <TextField fx:id="appTitleTF" layoutX="120.0" layoutY="151.0" promptText="Title" />
+      <TextField fx:id="appDescriptionTF" layoutX="120.0" layoutY="206.0" promptText="Description" />
+      <Label layoutX="520.0" layoutY="44.0" text="Modify Appointment" />
+      <TextField fx:id="appTypeTF" layoutX="333.0" layoutY="151.0" promptText="Type" />
+      <TextField fx:id="appLocationTF" layoutX="333.0" layoutY="94.0" promptText="Location" />
+      <Button layoutX="877.0" layoutY="95.0" onAction="#onActionEditApointment" prefHeight="30.0" prefWidth="80.0" text="Edit" />
+      <ComboBox fx:id="contactCB" layoutX="333.0" layoutY="206.0" prefHeight="31.0" prefWidth="187.0" promptText="Contact" />
+      <TextField fx:id="appIDTF" disable="true" layoutX="120.0" layoutY="94.0" promptText="Appointment ID" />
+      <TableView fx:id="appointmentsTV" layoutX="40.0" layoutY="350.0" prefHeight="333.0" prefWidth="1106.0">
+        <columns>
+          <TableColumn fx:id="appIDCol" prefWidth="32.0" text="ID" />
+          <TableColumn fx:id="appTitleCol" prefWidth="117.0" text="Title" />
+            <TableColumn fx:id="appDescriptionCol" prefWidth="130.0" text="Description" />
+            <TableColumn fx:id="appLocationCol" prefWidth="156.0" text="Location" />
+            <TableColumn fx:id="appContactCol" prefWidth="160.0" text="Contact" />
+            <TableColumn fx:id="appTypeCol" prefWidth="115.0" text="Type" />
+            <TableColumn fx:id="appStartCol" prefWidth="135.0" text="Start" />
+            <TableColumn fx:id="appEndCol" prefWidth="135.0" text="End" />
+            <TableColumn fx:id="appCustIDCol" prefWidth="146.0" text="Customer ID" />
+        </columns>
+      </TableView>
+      <DatePicker fx:id="appDatePicker" layoutX="541.0" layoutY="94.0" />
+      <ComboBox fx:id="customerCB" layoutX="120.0" layoutY="264.0" prefHeight="31.0" prefWidth="187.0" promptText="Customer" />
+      <ComboBox fx:id="startTimeCB" layoutX="541.0" layoutY="151.0" prefHeight="31.0" prefWidth="218.0" promptText="Start Time" />
+      <ComboBox fx:id="endTimeCB" layoutX="541.0" layoutY="206.0" prefHeight="31.0" prefWidth="218.0" promptText="End Time" />
+      <Button layoutX="997.0" layoutY="207.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" prefHeight="30.0" prefWidth="80.0" text="Delete" />
+      <Button layoutX="997.0" layoutY="95.0" mnemonicParsing="false" onAction="#onActionClearFields" prefHeight="30.0" prefWidth="80.0" text="Clear" />
+      <ComboBox fx:id="userCB" layoutX="333.0" layoutY="264.0" prefHeight="31.0" prefWidth="187.0" promptText="User" />
+    </children>
+</AnchorPane>
