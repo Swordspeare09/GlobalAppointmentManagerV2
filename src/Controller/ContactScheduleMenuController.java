@@ -6,7 +6,6 @@
 package Controller;
 
 import Model.Appointments;
-import static Utils.DBQuerry.getAllAppointments;
 import static Utils.DBQuerry.getAllAppointmentsByContact;
 import java.io.IOException;
 import java.net.URL;

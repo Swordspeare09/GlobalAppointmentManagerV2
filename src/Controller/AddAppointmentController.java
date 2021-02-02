@@ -154,13 +154,14 @@ public class AddAppointmentController implements Initializable {
         //Fills in Table View with all Appointments
         appointmentsTV.setItems(getAllAppointments());
     }    
-    /** This defines the on Action event for the Save Button. This function is called when the Save Button is pressed. The program takes the User's TextField input 
-     * and validates before calling the addAppointment function. Throws SQLException if Alerts class messages do not catch errors. The Lambda Expression defined in this function
-     * is used to convert the User's times selected and converts them to UTC. 
+    /** *  This defines the on Action event for the Save Button.This function is called when the Save Button is pressed. The program takes the User's TextField input 
+ and validates before calling the addAppointment function. Throws SQLException if Alerts class messages do not catch errors. The Lambda Expression defined in this function
+ is used to convert the User's times selected and converts them to UTC. 
      @param event The mouse click on the Button.
+     * @throws SQLException Throws an SQL Exception if there is problem with the DataBase or the credentials. 
      */
     @FXML
-    private void onActionAddAppointment(ActionEvent event) throws SQLException {
+    public void onActionAddAppointment(ActionEvent event) throws SQLException {
 
         conversionCheckForOfficeHours validateOfficeHours = (LocalDateTime dateTime) -> { 
             //Lambda used to convert to validate incoming appointment times are within office hours            

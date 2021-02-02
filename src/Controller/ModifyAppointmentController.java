@@ -14,11 +14,15 @@ import static Model.Alerts.emptyDatePicker;
 import static Model.Alerts.emptyEndTimeCB;
 import static Model.Alerts.emptySelection;
 import static Model.Alerts.emptyStartTimeCB;
+import static Model.Alerts.overlappingAppointmentTimes;
 import Model.Appointments;
 import Model.Contact;
 import Model.Customer;
 import Model.Users;
 import Model.conversionCheckForOfficeHours;
+import static Utils.DBQuerry.appointmentModifyOverlapByCustomer;
+import static Utils.DBQuerry.appointmentModifyOverlapCheckByContact;
+import static Utils.DBQuerry.appointmentModifyOverlapCheckByUser;
 import static Utils.DBQuerry.deleteAppointment;
 import static Utils.DBQuerry.getAllAppointments;
 import static Utils.DBQuerry.getAllContacts;
@@ -157,13 +161,14 @@ public class ModifyAppointmentController implements Initializable {
         
     }    
 
-     /** This defines the on Action event for the Save Button. This function is called when the Save Button is pressed. The program takes the User's TextField input 
-     * and validates before calling the modifyAppointment function. Throws SQLException if Alerts class messages do not catch errors. The Lambda Expression defined in this function
-     * is used to convert the User's times selected and converts them to UTC. 
+     /** *  This defines the on Action event for the Save Button.This function is called when the Save Button is pressed. The program takes the User's TextField input 
+ and validates before calling the modifyAppointment function. Throws SQLException if Alerts class messages do not catch errors. The Lambda Expression defined in this function
+ is used to convert the User's times selected and converts them to UTC. 
      @param event The mouse click on the Button.
+     * @throws SQLException Throws an SQL Exception if there is problem with the DataBase or the credentials. 
      */
     @FXML
-    private void onActionModifyAppointment(ActionEvent event) {
+    public void onActionModifyAppointment(ActionEvent event) throws SQLException {
 
         conversionCheckForOfficeHours validateOfficeHours = (LocalDateTime dateTime) -> { 
             //Lambda used to convert to validate incoming appointment times are within office hours            
@@ -211,8 +216,14 @@ public class ModifyAppointmentController implements Initializable {
             {
                 if(validateOfficeHours.conversionCheckForOfficeHours(LocalDateTime.of(appDate, startTime)) && validateOfficeHours.conversionCheckForOfficeHours(LocalDateTime.of(appDate, endTime)))
                 {
-                    //Creates new Appointments Object to send to addAppointment function call
-                    Appointments tempApp = new Appointments(
+                    if(appointmentModifyOverlapByCustomer(LocalDateTime.of(appDate, startTime), LocalDateTime.of(appDate, endTime), tCustomer.getId(), Integer.parseInt(tID)))
+                    {
+                        if(appointmentModifyOverlapCheckByUser(LocalDateTime.of(appDate, startTime), LocalDateTime.of(appDate, endTime), tUser.getUserID(), Integer.parseInt(tID))) 
+                        {
+                            if(appointmentModifyOverlapCheckByContact(LocalDateTime.of(appDate, startTime), LocalDateTime.of(appDate, endTime), tContact.getId(), Integer.parseInt(tID)))
+                            {
+                                //Creates new Appointments Object to send to add Appointment function call
+                                Appointments tempApp = new Appointments(
                                             Integer.parseInt(tID),
                                             tTitle,
                                             tType,
@@ -222,15 +233,24 @@ public class ModifyAppointmentController implements Initializable {
                                             LocalDateTime.of(appDate, endTime),
                                             tCustomer.getId(),
                                             tUser.getUserID(),
-                                            tContact.getId()
+                                            tContact.getId() 
                                             );
                 
-                    //Sends new app created to function call
-                    modifyAppointment(tempApp, tUser);
-                    //Reloads Table View with new data from Database
-                    appointmentsTV.setItems(getAllAppointments());
-                    //Clears out all Text Fields and Combo Boxes
-                    onActionClearFields(event);
+                                //Sends new app created to function call
+                                modifyAppointment(tempApp, tUser);
+                                //Clears out User Fields
+                                onActionClearFields(event);
+                                //Reloads Table View with new data from Database
+                                appointmentsTV.setItems(getAllAppointments());
+                            } else{
+                                overlappingAppointmentTimes("Contact's");
+                            }
+                        } else {
+                            overlappingAppointmentTimes("User's");
+                        }
+                    }else{
+                        overlappingAppointmentTimes("Customer's");
+                    }
                 }else{
                     checkForOfficeHours();
                 }
@@ -322,7 +342,7 @@ public class ModifyAppointmentController implements Initializable {
         for(int i = 0; i < userCB.getItems().size(); i++)
         {
             Users selUser = userCB.getItems().get(i);
-            if(Objects.equals(selUser.getUserID(), modApp.getUserID()));
+            if(Objects.equals(selUser.getUserID(), modApp.getUserID()))
             {
              userCB.setValue(selUser);
              break;

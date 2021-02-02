@@ -18,7 +18,6 @@ import static Utils.DBQuerry.getRegions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -123,6 +122,8 @@ public class AddCustomerController implements Initializable {
                     cIDTF.setText(String.valueOf(getNewID()));
                     //Clears out User Fields
                     onActionClearFields(event);
+                    //Reloads the Customer Table
+                    customersTV.setItems(getAllCustomers());
                 }catch(Exception e){
                     //Alert informs user that no country or region was selected
                     emptyCountryRegionCB("Country/Region");

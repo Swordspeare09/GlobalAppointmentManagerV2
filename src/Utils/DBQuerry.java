@@ -41,14 +41,22 @@ public class DBQuerry {
     static ObservableList<Appointments> appointmentList = FXCollections.observableArrayList();
     static ObservableList<Users> usersList = FXCollections.observableArrayList();
     
-    //Create Statement Object
+    /** Defines the Static Function used to Set the Prepared Statement. Used to create and set a Prepared Statement
+     * for Querying the DataBase. 
+     * @param conn This connection is used to connect to the DataBase. 
+     * @param SQLStatement The String that contains the Statement used to create a query. 
+     * @throws SQLException Throws an SQL Exception is there is a problem with the DataBase or the credentials.
+     */
     public static void setPreparedStatement(Connection conn, String SQLStatement) throws SQLException
     {
         statement = conn.prepareStatement(SQLStatement);
         
     }
     
-    //Return Statment Object
+    /** Defines the Static Function used to Retrieve the Prepared Statement. Used to retrieve the Prepared Statement
+     * for Querying the DataBase. 
+     * @return Returns the Prepared Statement that was set previously. 
+     */
     public static PreparedStatement getPreparedStatement()
     {
         return statement;
@@ -269,7 +277,7 @@ public class DBQuerry {
             appointmentList.removeAll(appointmentList);
             
             Connection conn = DBConnection.getConnection();
-            String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, cus.Customer_ID, a.Contact_ID " 
+            String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, cus.Customer_ID, a.User_ID, a.Contact_ID " 
                     + "from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID"
                     + " inner join contacts as con on a.Contact_ID = con.Contact_ID Where a.Start >= ? and a.End <= ?"; 
             DBQuerry.setPreparedStatement(conn, queryStatement);
@@ -294,7 +302,7 @@ public class DBQuerry {
                         zonedStartDateTime,
                         zonedEndDateTime,
                         tempList.getInt("Customer_ID"),
-                        User.getUserID(),
+                        tempList.getInt("User_ID"),
                         tempList.getInt("Contact_ID")
                 );
                 appointmentList.add(tempApp);
@@ -337,7 +345,7 @@ public class DBQuerry {
             appointmentList.removeAll(appointmentList);
             
             Connection conn = DBConnection.getConnection();
-            String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, cus.Customer_ID, a.Contact_ID " 
+            String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, cus.Customer_ID, a.User_ID, a.Contact_ID " 
                     + "from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID"
                     + " inner join contacts as con on a.Contact_ID = con.Contact_ID Where a.Start >= ? and a.End <= ?"; 
             DBQuerry.setPreparedStatement(conn, queryStatement);
@@ -362,7 +370,7 @@ public class DBQuerry {
                         zonedStartDateTime,
                         zonedEndDateTime,
                         tempList.getInt("Customer_ID"),
-                        User.getUserID(),
+                        tempList.getInt("User_ID"),
                         tempList.getInt("Contact_ID")
                 );
                 appointmentList.add(tempApp);
@@ -399,7 +407,7 @@ public class DBQuerry {
             appointmentList.removeAll(appointmentList);
             Connection conn = DBConnection.getConnection();
             String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, "
-                    + "cus.Customer_ID, a.Contact_ID from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID "
+                    + "cus.Customer_ID, a.User_ID, a.Contact_ID from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID "
                     + "inner join contacts as con on a.Contact_ID = con.Contact_ID where a.Contact_ID =?";
             DBQuerry.setPreparedStatement(conn, queryStatement);
             PreparedStatement ps = DBQuerry.getPreparedStatement();
@@ -423,7 +431,7 @@ public class DBQuerry {
                         zonedStartDateTime,
                         zonedEndDateTime,
                         tempList.getInt("Customer_ID"),
-                        User.getUserID(),
+                        tempList.getInt("User_ID"),
                         tempList.getInt("Contact_ID")
                 );
                 appointmentList.add(tempApp);
@@ -459,7 +467,7 @@ public class DBQuerry {
             appointmentList.removeAll(appointmentList);
             Connection conn = DBConnection.getConnection();
             String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, "
-                    + "cus.Customer_ID, a.Contact_ID from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID "
+                    + "cus.Customer_ID, a.User_ID, a.Contact_ID from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID "
                     + "inner join contacts as con on a.Contact_ID = con.Contact_ID where a.Customer_ID = ?";
             DBQuerry.setPreparedStatement(conn, queryStatement);
             PreparedStatement ps = DBQuerry.getPreparedStatement();
@@ -483,7 +491,7 @@ public class DBQuerry {
                         zonedStartDateTime,
                         zonedEndDateTime,
                         tempList.getInt("Customer_ID"),
-                        User.getUserID(),
+                        tempList.getInt("User_ID"),
                         tempList.getInt("Contact_ID")
                 );
                 appointmentList.add(tempApp);
@@ -519,7 +527,7 @@ public class DBQuerry {
             appointmentList.removeAll(appointmentList);
             Connection conn = DBConnection.getConnection();
             String queryStatement = "SELECT a.Appointment_ID, a.Type, a.Title, a.Description, a.Location, a.Start, a.End, "
-                    + "cus.Customer_ID, a.Contact_ID from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID "
+                    + "cus.Customer_ID, a.User_ID, a.Contact_ID from appointments as a inner join customers as cus on a.Customer_ID = cus.Customer_ID "
                     + "inner join contacts as con on a.Contact_ID = con.Contact_ID";
             DBQuerry.setPreparedStatement(conn, queryStatement);
             PreparedStatement ps = DBQuerry.getPreparedStatement();
@@ -539,7 +547,7 @@ public class DBQuerry {
                         zonedStartDateTime,
                         zonedEndDateTime,
                         tempList.getInt("Customer_ID"),
-                        User.getUserID(),
+                        tempList.getInt("User_ID"),
                         tempList.getInt("Contact_ID")
                 );
                 appointmentList.add(tempApp);
@@ -558,10 +566,6 @@ public class DBQuerry {
      */
     public static void addCustomer(Customer newCust, int regionID) throws SQLException
     {
-        /**
-         The Lambda Expression defined in this function is used to convert UTC to User's Local Time. This is needed to keep all times stored in DB 
-         * in UTC for uniformity. The Lambda will convert UTC to User's Local time according to their System's Default setting.
-         */
             conversionToUserLocalDate convert = (LocalDateTime dateTime) -> { 
             //Lambda used to convert to Users zonedDateTime with offset and then return an instant of the ZonedDateTime in LocalDateTime form 
             ZonedDateTime zonedDateTimeInUTC = dateTime.atZone(ZoneId.of("UTC"));
@@ -977,6 +981,7 @@ public class DBQuerry {
             
             return ldt;
             };
+        
         // The Lambda Expression defined in this function is used to convert UTC to Users Local Time. This is needed to keep all times stored in DB 
         // in UTC for uniformity. The Lambda will convert UTC to User's Local time according to their System's Default setting.
         conversionToUTC convertBack = (LocalDateTime dateTime) -> { 
@@ -1045,12 +1050,12 @@ public class DBQuerry {
         return appointmentList;
     }
     
-    /** This defines the Static Function for preforming the query used to check for Appointment Times Overlap. The lambda used converts UTC to User's Local Time According 
+    /** This defines the Static Function for preforming the query used to check for Appointment Times Overlap before inserting. The lambda used converts UTC to User's Local Time According 
      * to their System's Settings. This functions uses a Lambda to convert UTC to User's Local time according to their System's Default setting.
      @param start The LocalDateTime object used to preform the SQL Query.
      * @param end The LocalDateTime object used to preform the SQL Query.
      * @param customerID The Integer used to preform the SQL Query.
-     * @return Boolean Returns a Boolean Value.
+     * @return Returns a Boolean Value.
      * @throws SQLException Throws an SQL Exception if there is a DataBase Error.
      */ 
     public static boolean appointmentOverlapCheckByCustomer(LocalDateTime start, LocalDateTime end, Integer customerID) throws SQLException
@@ -1094,7 +1099,65 @@ public class DBQuerry {
         return rs.next();
     }
     
-    /** This defines the Static Function for preforming the query used to check for Appointment Times Overlap. The lambda used converts UTC to User's Local Time According 
+    /** * This defines the Static Function for preforming the query used to check for Appointment Times Overlap before updating. The lambda used converts UTC to User's Local Time According 
+ to their System's Settings.This functions uses a Lambda to convert UTC to User's Local time according to their System's Default setting.
+     * @param start The LocalDateTime object used to preform the SQL Query.
+     * @param end The LocalDateTime object used to preform the SQL Query.
+     * @param customerID The Integer used to preform the SQL Query.
+     * @param appointmentId The Integer used to preform the SQL Query.
+     * @return Returns a Boolean Value. 
+     * @throws SQLException Throws an SQL Exception if there is a DataBase Error.
+     */
+    public static boolean appointmentModifyOverlapByCustomer(LocalDateTime start, LocalDateTime end, Integer customerID, Integer appointmentId) throws SQLException
+    {
+        
+        conversionToUserLocalDate convert = (LocalDateTime dateTime) -> { 
+            //Lambda used to convert to Users zonedDateTime with offset and then return an instant of the ZonedDateTime in LocalDateTime form             
+            ZoneId targetTimeZone = ZoneId.of("UTC");
+            ZoneId sourceTimeZone = ZoneId.of(ZoneId.systemDefault().toString());
+           
+            ZonedDateTime currentISTZoneDateTime = dateTime.atZone(sourceTimeZone);
+            
+            ZonedDateTime zonedAppDateTime = currentISTZoneDateTime.withZoneSameInstant(targetTimeZone);        
+            LocalDateTime ldt = zonedAppDateTime.toLocalDateTime(); 
+            
+            return ldt;
+            };
+        
+        //Converts to UTC Dates and Times to Check the DB
+        LocalDateTime newFirstNow = convert.conversionToUserLocalDate(start);
+        LocalDateTime newSecondNow = convert.conversionToUserLocalDate(end);
+        
+        //Used to format and convert LocalDateTime Objects into string pattern
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String newStart = dtf.format(newFirstNow);
+        String newEnd = dtf.format(newSecondNow);
+        
+        Connection conn = DBConnection.getConnection();
+        String queryStatement = "Select * From WJ07uZq.appointments where Start Between ? AND ? AND Customer_ID = ?";
+        DBQuerry.setPreparedStatement(conn, queryStatement);
+        PreparedStatement ps = DBQuerry.getPreparedStatement();
+        
+        //Key-value mapping
+        ps.setString(1, newStart);
+        ps.setString(2, newEnd);
+        ps.setString(3, String.valueOf(customerID));
+        
+        ResultSet rs = ps.executeQuery();
+        
+        //Checks and Moves the Result Set pointer to the 1st row to check the appointment ID
+        if(rs.next())
+        {
+        //Returns true or false depending on whether the Ids match
+        return Integer.parseInt(rs.getString("Appointment_ID")) == appointmentId;
+        }
+        else{
+            return true;
+        }
+            
+    }
+    
+    /** This defines the Static Function for preforming the query used to check for Appointment Times Overlap before inserting. The lambda used converts UTC to User's Local Time According 
      * to their System's Settings. This functions uses a Lambda to convert UTC to User's Local time according to their System's Default setting.
      @param start The LocalDateTime object used to preform the SQL Query.
      * @param end The LocalDateTime object used to preform the SQL Query.
@@ -1142,7 +1205,63 @@ public class DBQuerry {
         return rs.next();
     }
     
-    /** This defines the Static Function for preforming the query used to check for Appointment Times Overlap. The lambda used converts UTC to User's Local Time According 
+    /** *  This defines the Static Function for preforming the query used to check for Appointment Times Overlap before updating.The lambda used converts UTC to User's Local Time According 
+ to their System's Settings. This functions uses a Lambda to convert UTC to User's Local time according to their System's Default setting.
+     @param start The LocalDateTime object used to preform the SQL Query.
+     * @param end The LocalDateTime object used to preform the SQL Query.
+     * @param userId The Integer used to preform the SQL Query.
+     * @param appointmentId The Integer used to preform the Boolean check based on Appointment Id. 
+     * @return Boolean Returns a Boolean Value.
+     * @throws SQLException Throws an SQL Exception if there is a DataBase Error.
+     */ 
+    public static boolean appointmentModifyOverlapCheckByUser(LocalDateTime start, LocalDateTime end, Integer userId, Integer appointmentId) throws SQLException{
+        
+        conversionToUserLocalDate convert = (LocalDateTime dateTime) -> { 
+            //Lambda used to convert to Users zonedDateTime with offset and then return an instant of the ZonedDateTime in LocalDateTime form             
+            ZoneId targetTimeZone = ZoneId.of("UTC");
+            ZoneId sourceTimeZone = ZoneId.of(ZoneId.systemDefault().toString());
+           
+            ZonedDateTime currentISTZoneDateTime = dateTime.atZone(sourceTimeZone);
+            
+            ZonedDateTime zonedAppDateTime = currentISTZoneDateTime.withZoneSameInstant(targetTimeZone);        
+            LocalDateTime ldt = zonedAppDateTime.toLocalDateTime(); 
+            
+            return ldt;
+            };
+        
+        //Converts to UTC Dates and Times to Check the DB
+        LocalDateTime newFirstNow = convert.conversionToUserLocalDate(start);
+        LocalDateTime newSecondNow = convert.conversionToUserLocalDate(end);
+        
+        //Used to format and convert LocalDateTime Objects into string pattern
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String newStart = dtf.format(newFirstNow);
+        String newEnd = dtf.format(newSecondNow);
+        
+        Connection conn = DBConnection.getConnection();
+        String queryStatement = "Select * From WJ07uZq.appointments where Start Between ? AND ? AND User_ID = ?";
+        DBQuerry.setPreparedStatement(conn, queryStatement);
+        PreparedStatement ps = DBQuerry.getPreparedStatement();
+        
+        //Key-value mapping
+        ps.setString(1, newStart);
+        ps.setString(2, newEnd);
+        ps.setString(3, String.valueOf(userId));
+        
+        ResultSet rs = ps.executeQuery();
+        
+        //Checks and Moves the Result Set pointer to the 1st row to check the appointment ID
+        if(rs.next())
+        {
+        //Returns true or false depending on whether the Ids match
+        return Integer.parseInt(rs.getString("Appointment_ID")) == appointmentId;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    /** This defines the Static Function for preforming the query used to check for Appointment Times Overlap before inserting. The lambda used converts UTC to User's Local Time According 
      * to their System's Settings. This functions uses a Lambda to convert UTC to User's Local time according to their System's Default setting.
      @param start The LocalDateTime object used to preform the SQL Query.
      * @param end The LocalDateTime object used to preform the SQL Query.
@@ -1188,5 +1307,61 @@ public class DBQuerry {
         
         //Returns true or false depending on if the query returns appointments
         return rs.next();
+    }
+    
+    /** *  This defines the Static Function for preforming the query used to check for Appointment Times Overlap before inserting.The lambda used converts UTC to User's Local Time According 
+ to their System's Settings.This functions uses a Lambda to convert UTC to User's Local time according to their System's Default setting.
+     @param start The LocalDateTime object used to preform the SQL Query.
+     * @param end The LocalDateTime object used to preform the SQL Query.
+     * @param contactId The Integer used to preform the SQL Query.
+     * @param appointmentId The Integer used to preform the Boolean check based on Appointment Id.
+     * @return Boolean Returns a Boolean Value.
+     * @throws SQLException Throws an SQL Exception if there is a DataBase Error.
+     */ 
+    public static boolean appointmentModifyOverlapCheckByContact(LocalDateTime start, LocalDateTime end, Integer contactId, Integer appointmentId) throws SQLException{
+        
+        conversionToUserLocalDate convert = (LocalDateTime dateTime) -> { 
+            //Lambda used to convert to Users zonedDateTime with offset and then return an instant of the ZonedDateTime in LocalDateTime form             
+            ZoneId targetTimeZone = ZoneId.of("UTC");
+            ZoneId sourceTimeZone = ZoneId.of(ZoneId.systemDefault().toString());
+           
+            ZonedDateTime currentISTZoneDateTime = dateTime.atZone(sourceTimeZone);
+            
+            ZonedDateTime zonedAppDateTime = currentISTZoneDateTime.withZoneSameInstant(targetTimeZone);        
+            LocalDateTime ldt = zonedAppDateTime.toLocalDateTime(); 
+            
+            return ldt;
+            };
+        
+        //Converts to UTC Dates and Times to Check the DB
+        LocalDateTime newFirstNow = convert.conversionToUserLocalDate(start);
+        LocalDateTime newSecondNow = convert.conversionToUserLocalDate(end);
+        
+        //Used to format and convert LocalDateTime Objects into string pattern
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String newStart = dtf.format(newFirstNow);
+        String newEnd = dtf.format(newSecondNow);
+        
+        Connection conn = DBConnection.getConnection();
+        String queryStatement = "Select * From WJ07uZq.appointments where Start Between ? AND ? AND Contact_ID = ?";
+        DBQuerry.setPreparedStatement(conn, queryStatement);
+        PreparedStatement ps = DBQuerry.getPreparedStatement();
+        
+        //Key-value mapping
+        ps.setString(1, newStart);
+        ps.setString(2, newEnd);
+        ps.setString(3, String.valueOf(contactId));
+        
+        ResultSet rs = ps.executeQuery();
+        
+        //Checks and Moves the Result Set pointer to the 1st row to check the appointment ID
+        if(rs.next())
+        {
+        //Returns true or false depending on whether the Ids match
+        return Integer.parseInt(rs.getString("Appointment_ID")) == appointmentId;
+        }
+        else{
+            return true;
+        }
     }
 }

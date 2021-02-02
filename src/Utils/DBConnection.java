@@ -9,7 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/** This class defines the public DBConnection Class. */
+/** This class defines the public DBConnection Class. This Public class is used to create, retrieve and close
+ connections to the DataBase. */
 public class DBConnection {
     
     //DataBase Connection variables
@@ -23,13 +24,16 @@ public class DBConnection {
     //Driver Interface Reference 
     private static final String MYSQLJDBCDriver = "com.mysql.jdbc.Driver";
     
-    //Credintials for Accessing DB
-    
+    //Credentials for Accessing DB
     private static final String username = "U07uZq"; // Username
     private static final String password = "53689138987"; // Password
     
     private static Connection conn = null;
     
+    /** The Static Function used to Create a Connection to DataBase. Creates a connection to the SQL DataBase using 
+     * predefined credentials. 
+     * @return Returns a Connection to the DataBase.
+     */
     public static Connection startConnection()
     {
         try {
@@ -45,6 +49,8 @@ public class DBConnection {
         return conn;
     }
     
+    /** The Static Function used to Close a Connection to the DataBase. Closes the Connection to the DataBase. 
+     */
     public static void closeConnection ()
     {
         try {
@@ -55,6 +61,11 @@ public class DBConnection {
         }
     }
     
+    /** The Static Function used to Retrieve a Connection to the DataBase. Used to retrieve a previously made connection
+     * to the DataBase. 
+     * @return Returns a connection. 
+     * @throws SQLException Throws an SQL Exception if there is a problem with the DataBase or credentials. 
+     */
     public static Connection getConnection() throws SQLException 
     {
         Connection connection = DriverManager.getConnection(jdbcURL, username, password);
